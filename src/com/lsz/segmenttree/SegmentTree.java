@@ -1,7 +1,5 @@
 package com.lsz.segmenttree;
 
-import java.security.interfaces.RSAKey;
-
 public class SegmentTree<E> {
     /**
      * arr的副本
@@ -14,6 +12,7 @@ public class SegmentTree<E> {
     public Merger<E> merger;
 
     public SegmentTree(E[] arr, Merger<E> merger) {
+        this.merger = merger;
         data = (E[]) new Object[arr.length];
         for (int i = 0; i < arr.length; i++) {
             data[i] = arr[i];
@@ -22,7 +21,6 @@ public class SegmentTree<E> {
         tree = (E[]) new Object[arr.length * 4];
         //开始组织线段树
         buildTree(0, 0, data.length - 1);
-        this.merger = merger;
     }
 
     /**
@@ -47,6 +45,44 @@ public class SegmentTree<E> {
 
     public E get(int index) {
         return data[index];
+    }
+
+    /**
+     * 查询data[queryR,queryR]的区间结果
+     *
+     * @param queryL
+     * @param queryR
+     * @return
+     */
+    public E query(int queryL, int queryR) {
+        return query(0, 0, data.length - 1, queryL, queryR);
+    }
+
+    /**
+     * 在tree[treeIndex]为根的线段树中，它存储了data[l,r]的数据，查找区间[queryL,queryR]的值
+     *
+     * @param treeIndex
+     * @param l
+     * @param r
+     * @param queryL
+     * @param queryR
+     * @return
+     */
+    private E query(int treeIndex, int l, int r, int queryL, int queryR) {
+        if (l == queryL && r == queryR) {
+            return tree[treeIndex];
+        }
+        int mid = l + (r - l) / 2;
+        int leftChildIndex = leftChild(treeIndex);
+        int rightChildIndex = rightChild(treeIndex);
+        if (queryL >= mid + 1) {
+            return query(rightChildIndex, mid + 1, r, queryL, queryR);
+        } else if (queryR <= mid) {
+            return query(leftChildIndex, l, mid, queryL, queryR);
+        }
+        E left = query(leftChildIndex, l, mid, queryL, mid);
+        E right = query(rightChildIndex, mid + 1, r, mid + 1, queryR);
+        return merger.merge(left, right);
     }
 
     public int getSize() {
