@@ -80,7 +80,9 @@ public class SegmentTree<E> {
         } else if (queryR <= mid) {
             return query(leftChildIndex, l, mid, queryL, queryR);
         }
+        //左子树存储了data[l,mid]
         E left = query(leftChildIndex, l, mid, queryL, mid);
+        //右子树存储了data[mid+1,r]
         E right = query(rightChildIndex, mid + 1, r, mid + 1, queryR);
         return merger.merge(left, right);
     }
