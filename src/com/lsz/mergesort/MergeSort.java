@@ -33,7 +33,7 @@ public class MergeSort {
     }
 
     /**
-     * 对arr[l,mid]和arr[mid+1,r]合并
+     * 对已经有序的两个数组：arr[l,mid]和arr[mid+1,r]合并
      *
      * @param arr
      * @param l
@@ -41,6 +41,16 @@ public class MergeSort {
      * @param r
      */
     private void merge(int[] arr, int l, int mid, int r) {
+        if (arr[mid] <= arr[mid + 1]) {
+            //优化1：arr[l,r]已经有序了，不用再排了
+            return;
+        }
+
+        //优化2，如果数组长度小于某个阈值，就采用插入排序，性能更佳
+        if (r - l <= 15) {
+            InsertionSort.sort(arr, l, r);
+        }
+
         //复制一份
         int[] copy = Arrays.copyOfRange(arr, l, r + 1);
         int i = l;
