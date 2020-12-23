@@ -5,9 +5,9 @@
 ```java
 //优化2，如果数组长度小于某个阈值，就采用插入排序，性能更佳
 if (r - l <= 15) {
-            InsertionSort.sort(arr, l, r);
-            return;
-        }
+        InsertionSort.sort(arr, l, r);
+        return;
+    }
 ```
 
 
