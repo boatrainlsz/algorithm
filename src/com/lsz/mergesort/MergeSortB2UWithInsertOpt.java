@@ -44,23 +44,6 @@ public class MergeSortB2UWithInsertOpt {
     }
 
     /**
-     * 对arr[l,r]进行排序
-     *
-     * @param arr
-     * @param l
-     * @param r
-     */
-    public void mergeSort(int[] arr, int l, int r, int[] copy) {
-        if (l == r) {
-            return;
-        }
-        int mid = (l + r) / 2;
-        mergeSort(arr, l, mid, copy);
-        mergeSort(arr, mid + 1, r, copy);
-        merge(arr, l, mid, r, copy);
-    }
-
-    /**
      * 对已经有序的两个数组：arr[l,mid]和arr[mid+1,r]合并
      *
      * @param arr
