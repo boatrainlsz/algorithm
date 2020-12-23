@@ -64,7 +64,7 @@ public class MergeSortU2BWithMemOpt {
         System.arraycopy(arr, l, copy, l, r - l + 1);
         int i = l;
         int j = mid + 1;
-        //每轮循环为arr[k]赋值。注意arr[i]在copy中的下标变为了i-l;
+        //每轮循环为arr[k]赋值。
         for (int k = l; k <= r; k++) {
             if (i > mid) {
                 //如果i越界了

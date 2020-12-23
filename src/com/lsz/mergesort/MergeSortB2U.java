@@ -12,10 +12,11 @@ public class MergeSortB2U {
         for (int i = 0; i < array.length; i++) {
             array[i] = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         }
-        System.out.println(Arrays.toString(array));
+        int[] ten = new int[]{ 9, 8, 7, 6, 5, 4, 3, 2, 1};
+        System.out.println(Arrays.toString(ten));
         MergeSortB2U mergeSort = new MergeSortB2U();
-        mergeSort.mergeSort(array);
-        System.out.println(Arrays.toString(array));
+        mergeSort.mergeSort(ten);
+        System.out.println(Arrays.toString(ten));
     }
 
     public void mergeSort(int[] arr) {
@@ -25,6 +26,7 @@ public class MergeSortB2U {
         //待合并的区间的长度，1，2，4，8....
         for (int size = 1; size < n; size += size) {
             //合并两个有序数组[i,i+size-1]和[i+size,Math.min(i + size + size - 1,n-1)]
+//            System.out.println("size="+size+"，arr="+ Arrays.toString(arr));
             for (int i = 0; i + size < n; i += size + size) {
                 //如果已经有序，无需合并
                 if (arr[i + size - 1] > arr[i + size]) {
@@ -66,16 +68,16 @@ public class MergeSortB2U {
             return;
         }
 
-        //优化2，如果数组长度小于某个阈值，就采用插入排序，性能更佳
+        /*//优化2，如果数组长度小于某个阈值，就采用插入排序，性能更佳
         if (r - l <= 15) {
             InsertionSort.sort(arr, l, r);
             return;
-        }
+        }*/
         //优化3：copy数组全局只有一份
         System.arraycopy(arr, l, copy, l, r - l + 1);
         int i = l;
         int j = mid + 1;
-        //每轮循环为arr[k]赋值。注意arr[i]在copy中的下标变为了i-l;
+        //每轮循环为arr[k]赋值
         for (int k = l; k <= r; k++) {
             if (i > mid) {
                 //如果i越界了
