@@ -13,27 +13,15 @@ public class MergeSortU2B {
             array[i] = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         }
         System.out.println(Arrays.toString(array));
-        MergeSortU2B mergeSort = new MergeSortU2B();
-        mergeSort.mergeSort(array);
+        MergeSortU2B mergeSortUp2Down = new MergeSortU2B();
+        mergeSortUp2Down.mergeSort(array);
         System.out.println(Arrays.toString(array));
     }
 
     public void mergeSort(int[] arr) {
-        //优化3：调用前先拷贝一次
-        int[] copy = Arrays.copyOf(arr, arr.length);
-        int n = arr.length;
-        //待合并的区间的长度，1，2，4，8....
-        for (int size = 1; size < n; size += size) {
-            //合并两个有序数组[i,i+size-1]和[i+size,Math.min(i + size + size - 1,n-1)]
-            for (int i = 0; i + size < n; i += size + size) {
-                //如果已经有序，无需合并
-                if (arr[i + size - 1] > arr[i + size]) {
-                    //i + size + size - 1可能越界
-                    merge(arr, i, i + size - 1, Math.min(i + size + size - 1, n - 1), copy);
-                }
-            }
-        }
+        mergeSort(arr, 0, arr.length - 1);
     }
+
 
     /**
      * 对arr[l,r]进行排序
@@ -42,14 +30,14 @@ public class MergeSortU2B {
      * @param l
      * @param r
      */
-    public void mergeSort(int[] arr, int l, int r, int[] copy) {
+    public void mergeSort(int[] arr, int l, int r) {
         if (l == r) {
             return;
         }
         int mid = (l + r) / 2;
-        mergeSort(arr, l, mid, copy);
-        mergeSort(arr, mid + 1, r, copy);
-        merge(arr, l, mid, r, copy);
+        mergeSort(arr, l, mid);
+        mergeSort(arr, mid + 1, r);
+        merge(arr, l, mid, r);
     }
 
     /**
@@ -60,7 +48,7 @@ public class MergeSortU2B {
      * @param mid
      * @param r
      */
-    private void merge(int[] arr, int l, int mid, int r, int[] copy) {
+    private void merge(int[] arr, int l, int mid, int r) {
         if (arr[mid] <= arr[mid + 1]) {
             //优化1：arr[l,r]已经有序了，不用再排了
             return;
@@ -71,26 +59,27 @@ public class MergeSortU2B {
             InsertionSort.sort(arr, l, r);
             return;
         }
-        //优化3：copy数组全局只有一份
-        System.arraycopy(arr, l, copy, l, r - l + 1);
+
+        //复制一份
+        int[] copy = Arrays.copyOfRange(arr, l, r + 1);
         int i = l;
         int j = mid + 1;
         //每轮循环为arr[k]赋值。注意arr[i]在copy中的下标变为了i-l;
         for (int k = l; k <= r; k++) {
             if (i > mid) {
                 //如果i越界了
-                arr[k] = copy[j];
+                arr[k] = copy[j - l];
                 j++;
             } else if (j > r) {
                 //如果j越界了
-                arr[k] = copy[i];
+                arr[k] = copy[i - l];
                 i++;
-            } else if (copy[i] <= copy[j]) {
+            } else if (copy[i - l] <= copy[j - l]) {
                 //都没越界，比较大小
-                arr[k] = copy[i];
+                arr[k] = copy[i - l];
                 i++;
             } else {
-                arr[k] = copy[j];
+                arr[k] = copy[j - l];
                 j++;
             }
         }
