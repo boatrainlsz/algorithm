@@ -1,26 +1,25 @@
 package com.lsz.mergesort;
 
 import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * 自底向上
+ * based on ReversePairs
+ * 去掉状态变量，更优雅
  */
-public class MergeSortB2U {
+public class ReversePairsElegant {
+
+
     public static void main(String[] args) {
-        int[] array = new int[100];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-        }
-        int[] ten = new int[]{ 9, 8, 7, 6, 5, 4, 3, 2, 1};
-        System.out.println(Arrays.toString(ten));
-        MergeSortB2U mergeSort = new MergeSortB2U();
-        mergeSort.mergeSort(ten);
-        System.out.println(Arrays.toString(ten));
+        ReversePairsElegant reversePairs = new ReversePairsElegant();
+        System.out.println(reversePairs.reversePairs(new int[]{7, 5, 6, 4}));
     }
 
-    public void mergeSort(int[] arr) {
-        //优化3：调用前先拷贝一次
+    public int reversePairs(int[] nums) {
+        return mergeSort(nums);
+    }
+
+    public int mergeSort(int[] arr) {
+        int res = 0;
         int[] copy = Arrays.copyOf(arr, arr.length);
         int n = arr.length;
         //待合并的区间的长度，1，2，4，8....
@@ -31,12 +30,12 @@ public class MergeSortB2U {
                 //如果已经有序，无需合并
                 if (arr[i + size - 1] > arr[i + size]) {
                     //i + size + size - 1可能越界
-                    merge(arr, i, i + size - 1, Math.min(i + size + size - 1, n - 1), copy);
+                    res += merge(arr, i, i + size - 1, Math.min(i + size + size - 1, n - 1), copy);
                 }
             }
         }
+        return res;
     }
-
 
     /**
      * 对已经有序的两个数组：arr[l,mid]和arr[mid+1,r]合并
@@ -46,10 +45,12 @@ public class MergeSortB2U {
      * @param mid
      * @param r
      */
-    private void merge(int[] arr, int l, int mid, int r, int[] copy) {
+    private int merge(int[] arr, int l, int mid, int r, int[] copy) {
+        int res = 0;
+
         if (arr[mid] <= arr[mid + 1]) {
             //优化1：arr[l,r]已经有序了，不用再排了
-            return;
+            return 0;
         }
 
         /*//优化2，如果数组长度小于某个阈值，就采用插入排序，性能更佳
@@ -77,9 +78,10 @@ public class MergeSortB2U {
                 i++;
             } else {
                 arr[k] = copy[j];
+                res += mid - i + 1;
                 j++;
             }
         }
+        return res;
     }
-
 }

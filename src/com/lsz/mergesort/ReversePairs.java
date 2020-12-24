@@ -1,22 +1,23 @@
 package com.lsz.mergesort;
 
 import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * 自底向上
+ * 直接套用归并排序
+ * 解决逆序对问题
  */
-public class MergeSortB2U {
+public class ReversePairs {
+
+
     public static void main(String[] args) {
-        int[] array = new int[100];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-        }
-        int[] ten = new int[]{ 9, 8, 7, 6, 5, 4, 3, 2, 1};
-        System.out.println(Arrays.toString(ten));
-        MergeSortB2U mergeSort = new MergeSortB2U();
-        mergeSort.mergeSort(ten);
-        System.out.println(Arrays.toString(ten));
+        ReversePairs reversePairs = new ReversePairs();
+        System.out.println(reversePairs.reversePairs(new int[]{7,5,6,4}));
+    }
+    int ans = 0;
+
+    public int reversePairs(int[] nums) {
+        mergeSort(nums);
+        return ans;
     }
 
     public void mergeSort(int[] arr) {
@@ -36,7 +37,6 @@ public class MergeSortB2U {
             }
         }
     }
-
 
     /**
      * 对已经有序的两个数组：arr[l,mid]和arr[mid+1,r]合并
@@ -77,9 +77,9 @@ public class MergeSortB2U {
                 i++;
             } else {
                 arr[k] = copy[j];
+                ans += mid - i + 1;
                 j++;
             }
         }
     }
-
 }
