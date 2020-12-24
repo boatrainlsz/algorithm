@@ -11,7 +11,7 @@ public class ReversePairsElegant {
 
     public static void main(String[] args) {
         ReversePairsElegant reversePairs = new ReversePairsElegant();
-        System.out.println(reversePairs.reversePairs(new int[]{7, 5, 6, 4}));
+        System.out.println(reversePairs.reversePairs(new int[]{10, 6, 7, 5, 4, 8, 3, 9, 2, 1}));
     }
 
     public int reversePairs(int[] nums) {
