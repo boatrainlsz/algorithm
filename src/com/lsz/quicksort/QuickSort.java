@@ -1,22 +1,10 @@
 package com.lsz.quicksort;
 
-import com.lsz.util.ArrayUtil;
-
 import java.util.Random;
 
 public class QuickSort {
-    public static void main(String[] args) throws Exception {
-//        int[] arr = ArrayGenerator.generateDescendArray(1, 9);
-        int[] arr = ArrayUtil.generateRandomArray(0, 0, 100000);
-//        System.out.println("排序前：" + Arrays.toString(arr));
-        long start = System.nanoTime();
-        QuickSort.quickSort(arr);
-        long elapsedTime = System.nanoTime() - start;
-        System.out.println("Quick Sort takes " + elapsedTime / 1000000000 + "s");
-//        System.out.println("排序后：" + Arrays.toString(arr));
-    }
 
-    public static void quickSort(int[] arr) {
+    public static void sort(int[] arr) {
         Random random = new Random();
         quickSort(arr, 0, arr.length - 1, random);
     }
@@ -43,10 +31,10 @@ public class QuickSort {
             while (i <= j && arr[j] > arr[l]) {
                 j--;
             }
+            if (i >= j) break;
             swap(arr, i, j);
             i++;
             j--;
-            if (i >= j) break;
         }
         swap(arr, l, j);
         return j;
