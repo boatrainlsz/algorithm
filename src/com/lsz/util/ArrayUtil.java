@@ -2,7 +2,7 @@ package com.lsz.util;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ArrayGenerator {
+public class ArrayUtil {
     public static int[] generateRandomArray(int min, int max, int size) {
         int[] arr = new int[size];
         for (int i = 0; i < size; i++) {
@@ -20,5 +20,14 @@ public class ArrayGenerator {
             arr[i] = max - i;
         }
         return arr;
+    }
+
+    public static boolean isSorted(int[] arr) throws Exception {
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                return false;
+            }
+        }
+        return true;
     }
 }
