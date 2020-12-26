@@ -5,7 +5,7 @@ import com.lsz.quicksort.QuickSort;
 public class SortHelper {
     public static void main(String[] args) throws Exception {
 //        int[] arr = ArrayGenerator.generateDescendArray(1, 9);
-        int[] arr = ArrayUtil.generateRandomArray(0, 5000000, 5000000);
+        int[] arr = ArrayUtil.generateRandomArray(0, 50000000, 50000000);
         sort(arr, "QuickSort");
     }
 
