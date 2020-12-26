@@ -12,7 +12,7 @@ public class MergeSortB2U {
         for (int i = 0; i < array.length; i++) {
             array[i] = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         }
-        int[] ten = new int[]{ 9, 8, 7, 6, 5, 4, 3, 2, 1};
+        int[] ten = new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1};
         System.out.println(Arrays.toString(ten));
         MergeSortB2U mergeSort = new MergeSortB2U();
         mergeSort.mergeSort(ten);
