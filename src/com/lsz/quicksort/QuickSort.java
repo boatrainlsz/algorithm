@@ -25,14 +25,18 @@ public class QuickSort {
         int i = l + 1, j = r;
         //arr[l+1,i-1] <=arr[l]，arr[j+1,r] >=arr[l]
         while (true) {
+            //找到一个大于等于arr[l]的数arr[i]
             while (i <= j && arr[i] < arr[l]) {
                 i++;
             }
+            //找到一个小于等于arr[l]的数arr[j]
             while (i <= j && arr[j] > arr[l]) {
                 j--;
             }
             if (i >= j) break;
+            //交换arr[i],arr[j]
             swap(arr, i, j);
+            //继续下一轮寻找，直到i >= j退出循环
             i++;
             j--;
         }
