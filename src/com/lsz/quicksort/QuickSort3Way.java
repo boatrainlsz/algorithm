@@ -9,7 +9,7 @@ import java.util.Random;
  * QuickSort3Way took 0.0216437s, size=50000000
  * based on
  *
- * @see com.lsz.quicksort.QuickSort
+ * @see QuickSort2Way
  */
 public class QuickSort3Way {
 

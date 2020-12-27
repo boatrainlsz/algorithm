@@ -1,20 +1,20 @@
 package com.lsz.util;
 
-import com.lsz.quicksort.QuickSort;
+import com.lsz.quicksort.QuickSort2Way;
 import com.lsz.quicksort.QuickSort3Way;
 
 public class SortHelper {
     public static void main(String[] args) throws Exception {
 //        int[] arr = ArrayUtil.generateDescendArray(1, 50000000);
         int[] arr = ArrayUtil.generateRandomArray(0, 0, 50000000);
-        sort(arr, "QuickSort");
+        sort(arr, "QuickSort2Way");
         sort(arr, "QuickSort3Way");
     }
 
     public static void sort(int[] arr, String method) throws Exception {
         long start = System.nanoTime();
-        if ("QuickSort".equals(method)) {
-            QuickSort.sort(arr);
+        if ("QuickSort2Way".equals(method)) {
+            QuickSort2Way.sort(arr);
         } else if ("QuickSort3Way".equals(method)) {
             QuickSort3Way.sort(arr);
         }

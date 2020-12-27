@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * 标准的双路快排
  */
-public class QuickSort {
+public class QuickSort2Way {
 
     public static void sort(int[] arr) {
         Random random = new Random();
