@@ -4,9 +4,10 @@ import com.lsz.quicksort.QuickSort;
 
 public class SortHelper {
     public static void main(String[] args) throws Exception {
-//        int[] arr = ArrayUtil.generateDescendArray(1, 50000000);
-        int[] arr = ArrayUtil.generateRandomArray(0, 0, 50000000);
+        int[] arr = ArrayUtil.generateDescendArray(1, 50000000);
+//        int[] arr = ArrayUtil.generateRandomArray(0, 0, 50000000);
         sort(arr, "QuickSort");
+        sort(arr, "QuickSort3Way");
     }
 
     public static void sort(int[] arr, String method) throws Exception {

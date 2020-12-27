@@ -2,6 +2,9 @@ package com.lsz.quicksort;
 
 import java.util.Random;
 
+/**
+ * 标准的双路快排
+ */
 public class QuickSort {
 
     public static void sort(int[] arr) {
