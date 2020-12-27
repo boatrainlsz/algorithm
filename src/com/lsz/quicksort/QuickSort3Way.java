@@ -36,6 +36,7 @@ public class QuickSort3Way {
                 swap(arr, i, lt);
                 i++;
             }
+            //结束循环
             if (i >= gt) {
                 break;
             }
