@@ -3,12 +3,15 @@ package com.lsz.util;
 import com.lsz.quicksort.QuickSort2Way;
 import com.lsz.quicksort.QuickSort3Way;
 
+import java.util.Arrays;
+
 public class SortHelper {
     public static void main(String[] args) throws Exception {
 //        int[] arr = ArrayUtil.generateDescendArray(1, 50000000);
         int[] arr = ArrayUtil.generateRandomArray(0, 0, 50000000);
         sort(arr, "QuickSort2Way");
         sort(arr, "QuickSort3Way");
+        sort(arr, "JDKSort");
     }
 
     public static void sort(int[] arr, String method) throws Exception {
@@ -17,6 +20,8 @@ public class SortHelper {
             QuickSort2Way.sort(arr);
         } else if ("QuickSort3Way".equals(method)) {
             QuickSort3Way.sort(arr);
+        } else if ("JDKSort".equals(method)) {
+            Arrays.sort(arr);
         }
         if (!ArrayUtil.isSorted(arr)) {
             throw new Exception(method + " failed, " + "size=" + arr.length);
