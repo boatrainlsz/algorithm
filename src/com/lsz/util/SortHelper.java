@@ -8,10 +8,10 @@ import java.util.Arrays;
 public class SortHelper {
     public static void main(String[] args) throws Exception {
 //        int[] arr = ArrayUtil.generateDescendArray(1, 50000000);
-        int[] arr = ArrayUtil.generateRandomArray(0, 0, 50000000);
-        sort(arr, "QuickSort2Way");
+        int[] arr = ArrayUtil.generateRandomArray(0, 10, 10);
+//        sort(arr, "QuickSort2Way");
         sort(arr, "QuickSort3Way");
-        sort(arr, "JDKSort");
+//        sort(arr, "JDKSort");
     }
 
     public static void sort(int[] arr, String method) throws Exception {

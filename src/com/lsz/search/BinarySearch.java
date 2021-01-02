@@ -26,6 +26,7 @@ public class BinarySearch {
      */
     public static <E extends Comparable<E>> int search(E[] data, E target) {
         int l = 0, r = data.length - 1;
+        //在data[l,r]中查找
         while (l <= r) {
             int mid = l + (r - l) / 2;
             if (data[mid].compareTo(target) == 0) {
