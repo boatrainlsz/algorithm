@@ -1,4 +1,4 @@
-package com.lsz.mergesort;
+package com.lsz.sort.mergesort;
 
 import java.util.Arrays;
 

@@ -1,7 +1,7 @@
 package com.lsz.util;
 
-import com.lsz.quicksort.QuickSort2Way;
-import com.lsz.quicksort.QuickSort3Way;
+import com.lsz.sort.quicksort.QuickSort2Way;
+import com.lsz.sort.quicksort.QuickSort3Way;
 
 import java.util.Arrays;
 

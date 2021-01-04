@@ -1,4 +1,4 @@
-package com.lsz.quicksort;
+package com.lsz.sort.quicksort;
 
 import java.util.Random;
 

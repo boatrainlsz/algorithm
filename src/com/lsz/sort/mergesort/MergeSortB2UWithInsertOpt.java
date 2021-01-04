@@ -1,40 +1,46 @@
-package com.lsz.mergesort;
+package com.lsz.sort.mergesort;
 
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * based on ReversePairs
- * 去掉状态变量，更优雅
+ * 自底向上的归并排序，使用插入进行优化
  */
-public class ReversePairsElegant {
-
-
+public class MergeSortB2UWithInsertOpt {
     public static void main(String[] args) {
-        ReversePairsElegant reversePairs = new ReversePairsElegant();
-        System.out.println(reversePairs.reversePairs(new int[]{10, 6, 7, 5, 4, 8, 3, 9, 2, 1}));
+        int[] array = new int[100];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+        }
+        int[] ten = new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1};
+        System.out.println(Arrays.toString(array));
+        MergeSortB2UWithInsertOpt mergeSort = new MergeSortB2UWithInsertOpt();
+        mergeSort.mergeSort(array);
+        System.out.println(Arrays.toString(array));
     }
 
-    public int reversePairs(int[] nums) {
-        return mergeSort(nums);
-    }
-
-    public int mergeSort(int[] arr) {
-        int res = 0;
+    public void mergeSort(int[] arr) {
+        //优化3：调用前先拷贝一次
         int[] copy = Arrays.copyOf(arr, arr.length);
         int n = arr.length;
-        //待合并的区间的长度，1，2，4，8....
-        for (int size = 1; size < n; size += size) {
+
+        //对所有 arr[i, i + 15] 的区间，使用插入排序法
+        for (int i = 0; i < n; i += 16) {
+            InsertionSort.sort(arr, i, Math.min(i + 15, n - 1));
+        }
+
+        //size的起点自然也就不是1了，而是16。
+        for (int size = 16; size < n; size += size) {
             //合并两个有序数组[i,i+size-1]和[i+size,Math.min(i + size + size - 1,n-1)]
 //            System.out.println("size="+size+"，arr="+ Arrays.toString(arr));
             for (int i = 0; i + size < n; i += size + size) {
                 //如果已经有序，无需合并
                 if (arr[i + size - 1] > arr[i + size]) {
                     //i + size + size - 1可能越界
-                    res += merge(arr, i, i + size - 1, Math.min(i + size + size - 1, n - 1), copy);
+                    merge(arr, i, i + size - 1, Math.min(i + size + size - 1, n - 1), copy);
                 }
             }
         }
-        return res;
     }
 
     /**
@@ -45,12 +51,10 @@ public class ReversePairsElegant {
      * @param mid
      * @param r
      */
-    private int merge(int[] arr, int l, int mid, int r, int[] copy) {
-        int res = 0;
-
+    private void merge(int[] arr, int l, int mid, int r, int[] copy) {
         if (arr[mid] <= arr[mid + 1]) {
             //优化1：arr[l,r]已经有序了，不用再排了
-            return 0;
+            return;
         }
 
         /*//优化2，如果数组长度小于某个阈值，就采用插入排序，性能更佳
@@ -78,10 +82,9 @@ public class ReversePairsElegant {
                 i++;
             } else {
                 arr[k] = copy[j];
-                res += mid - i + 1;
                 j++;
             }
         }
-        return res;
     }
+
 }
