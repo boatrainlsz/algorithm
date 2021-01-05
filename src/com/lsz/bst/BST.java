@@ -22,38 +22,21 @@ public class BST<E extends Comparable<E>> {
 
     //添加元素e
     public void add(E e) {
-        if (root == null) {
-            root = new Node(e);
-            size++;
-        } else {
-            add(root, e);
-        }
+        root = add(root, e);
     }
 
-    //以node为根节点的BST中添加元素e
-    private void add(Node node, E e) {
-        //------------------------递归的终止条件--------------------------//
-        if (e.equals(node.e)) {
-            //不包含重复元素
-            return;
-        } else if (e.compareTo(node.e) < 0 && node.left == null) {
-            node.left = new Node(e);
+    //以node为根节点的BST中添加元素e,返回添加后的根节点
+    private Node add(Node node, E e) {
+        if (node == null) {
             size++;
-            return;
-
-        } else if (e.compareTo(node.e) > 0 && node.right == null) {
-            node.right = new Node(e);
-            size++;
-            return;
+            return new Node(e);
         }
-        //------------------------递归的终止条件--------------------------//
-
-
         if (e.compareTo(node.e) < 0) {
-            add(node.left, e);
-        } else {
-            add(node.right, e);
+            node.left = add(node.left, e);
+        } else if (e.compareTo(node.e) > 0) {
+            node.right = add(node.right, e);
         }
+        return node;
     }
 
     public boolean isEmpty() {
