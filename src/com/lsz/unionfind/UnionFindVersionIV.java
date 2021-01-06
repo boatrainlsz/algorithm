@@ -2,10 +2,10 @@ package com.lsz.unionfind;
 
 /**
  * Quick Union
- * based on{@link com.lsz.unionfind.UnionFindVersionII}
- * 修复了合并时出现瘸腿的问题,基于树的大小来合并
+ * similar to {@link UnionFindVersionIII}
+ * 修复了合并时出现瘸腿的问题,基于树的高度来合并，better than UnionFindVersionIII
  */
-public class UnionFindVersionIII implements UF {
+public class UnionFindVersionIV implements UF {
 
     /**
      * i是元素，parent[i]是元素的父节点
@@ -15,16 +15,16 @@ public class UnionFindVersionIII implements UF {
     private int[] parent;
 
     /**
-     * sz[i]：以i为根节点的集合中的元素个数
+     * rank[i]：以i为根节点的树的层数
      */
-    private int[] sz;
+    private int[] rank;
 
-    public UnionFindVersionIII(int size) {
+    public UnionFindVersionIV(int size) {
         parent = new int[size];
-        sz = new int[size];
+        rank = new int[size];
         for (int i = 0; i < size; i++) {
             parent[i] = i;
-            sz[i] = 1;
+            rank[i] = 1;
         }
     }
 
@@ -45,15 +45,18 @@ public class UnionFindVersionIII implements UF {
         int pRoot = find(p);
         int qRoot = find(q);
         if (pRoot != qRoot) {
-            //优化，要考虑pRoot和qRoot这两棵树谁的元素多，小的加到大的上，避免树瘸腿
-            if (sz[pRoot] < sz[qRoot]) {
-                //q树大
+            //优化，要考虑pRoot和qRoot这两棵树谁的层数大，小的加到大的上，避免树瘸腿
+            if (rank[pRoot] < rank[qRoot]) {
+                //q树更深，注意这里qRoot的层数无需更新！
                 parent[pRoot] = qRoot;
-                sz[qRoot] += sz[pRoot];
-            } else {
-                //p树大
+            } else if (rank[pRoot] > rank[qRoot]) {
+                //p树更深
                 parent[qRoot] = pRoot;
-                sz[pRoot] += sz[qRoot];
+            } else {
+                //层数相等
+                parent[qRoot] = pRoot;
+                //注意这里pRoot的层数需要加1
+                rank[pRoot] += 1;
             }
         }
     }
