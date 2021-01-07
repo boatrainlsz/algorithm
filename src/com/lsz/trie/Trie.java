@@ -37,6 +37,29 @@ public class Trie {
         }
     }
 
+    //添加一个单词word,递归方式
+    public void addR(String word) {
+        addR(word, 0, root);
+    }
+
+    //将word[index,n-1]添加到以root为根的Trie中去 todo 待验证
+    private void addR(String word, int index, Node root) {
+        char c = word.charAt(index);
+        if (root.next.get(c) == null) {
+            root.next.put(c, new Node());
+        }
+        if (index == word.length() - 1) {
+            if (!root.next.get(c).isWord) {
+                //如果之前没存储过这个单词
+                //表示一个单词存储完毕
+                root.next.get(c).isWord = true;
+                size++;
+            }
+            return;
+        }
+        addR(word, index + 1, root.next.get(c));
+    }
+
     private static class Node {
         //当前节点是否是单词的结尾
         public boolean isWord;
