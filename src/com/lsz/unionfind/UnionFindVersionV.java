@@ -67,9 +67,19 @@ public class UnionFindVersionV implements UF {
     private int find(int p) {
         while (p != parent[p]) {
             //优化：路径压缩,p和parent[p]成为同级元素，减小树的深度
+            //注意！路径压缩后，树的深度变了，但是不去变更rank值，一是因为得不偿失，性能损耗比较大，二是一个粗略的rank值在合并时也够用了
+
+            //路径压缩算法1：孩子变兄弟
             parent[p] = parent[parent[p]];
             p = parent[p];
         }
         return p;
+
+        //路径压缩算法2：孩子变祖先，这个更狠
+        //https://www.runoob.com/data-structures/union-find-compress.html
+//        if (parent[p] != p) {
+//            parent[p] = find(parent[p]);
+//        }
+//        return parent[p];
     }
 }
