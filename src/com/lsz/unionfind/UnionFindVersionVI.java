@@ -2,11 +2,11 @@ package com.lsz.unionfind;
 
 /**
  * Quick Union
- * based on {@link UnionFindVersionIV}
- * 路径压缩算法1，提高效率 better than UnionFindVersionIV
+ * similar to {@link UnionFindVersionV}
+ * 路径压缩算法2，提高效率 better than UnionFindVersionV
  * 在查找的时候进行路径压缩
  */
-public class UnionFindVersionV implements UF {
+public class UnionFindVersionVI implements UF {
 
     /**
      * i是元素，parent[i]是元素的父节点
@@ -20,7 +20,7 @@ public class UnionFindVersionV implements UF {
      */
     private int[] rank;
 
-    public UnionFindVersionV(int size) {
+    public UnionFindVersionVI(int size) {
         parent = new int[size];
         rank = new int[size];
         for (int i = 0; i < size; i++) {
@@ -65,14 +65,11 @@ public class UnionFindVersionV implements UF {
     //查找元素p所在树的顶层根节点，也就是元素p的的集合编号
     //O(H),H为树的高度
     private int find(int p) {
-        while (p != parent[p]) {
-            //优化：路径压缩,p和parent[p]成为同级元素，减小树的深度
-            //注意！路径压缩后，树的深度变了，但是不去变更rank值，一是因为得不偿失，性能损耗比较大，二是一个粗略的rank值在合并时也够用了
-
-            //路径压缩算法1：孩子变兄弟
-            parent[p] = parent[parent[p]];
-            p = parent[p];
+        //路径压缩算法2：孩子变祖先，这个更狠
+        //https://www.runoob.com/data-structures/union-find-compress.html
+        if (parent[p] != p) {
+            parent[p] = find(parent[p]);
         }
-        return p;
+        return parent[p];
     }
 }
