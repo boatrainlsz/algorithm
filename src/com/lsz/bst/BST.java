@@ -110,6 +110,32 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
+    public E findMinimum() {
+        //最左端的节点就是最小值
+        return findMinimum(root).e;
+    }
+
+    private Node findMinimum(Node node) {
+        if (node.left == null) {
+            //找到了
+            return node;
+        }
+        return findMinimum(node.left);
+    }
+
+    public E findMaximum() {
+        //最右端的节点就是最大值
+        return findMaximum(root).e;
+    }
+
+    private Node findMaximum(Node node) {
+        if (node.right == null) {
+            //找到了
+            return node;
+        }
+        return findMaximum(node.right);
+    }
+
 
     private boolean contains(Node node, E e) {
         if (node == null) {
