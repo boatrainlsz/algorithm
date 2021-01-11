@@ -1,5 +1,7 @@
 package com.lsz.bst;
 
+import java.util.Stack;
+
 /**
  * 二分搜索树
  * 不包含重复元素
@@ -28,6 +30,23 @@ public class BST<E extends Comparable<E>> {
     //是否包含e
     public boolean contains(E e) {
         return contains(root, e);
+    }
+
+    //前序遍历非递归写法
+    public void preOrderIter() {
+        //使用栈
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node cur = stack.pop();
+            System.out.println(cur.e);
+            if (cur.right != null) {
+                stack.push(cur.right);
+            }
+            if (cur.left != null) {
+                stack.push(cur.left);
+            }
+        }
     }
 
     //前序遍历

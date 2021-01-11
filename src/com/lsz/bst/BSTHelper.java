@@ -8,7 +8,9 @@ public class BSTHelper {
             bst.add(num);
         }
 
-//        bst.preOrder();
-        bst.inOrder();
+        bst.preOrder();
+        System.out.println();
+        bst.preOrderIter();
+//        bst.inOrder();
     }
 }
