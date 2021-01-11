@@ -30,6 +30,50 @@ public class BST<E extends Comparable<E>> {
         return contains(root, e);
     }
 
+    //前序遍历
+    public void preOrder() {
+        preOrder(root);
+    }
+
+    private void preOrder(Node root) {
+        if (root == null) {
+            return;
+        }
+        System.out.println(root.e);
+        preOrder(root.left);
+        preOrder(root.right);
+    }
+
+    //中序遍历
+    public void inOrder() {
+        inOrder(root);
+    }
+
+    private void inOrder(Node root) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.left);
+        System.out.println(root.e);
+        inOrder(root.right);
+    }
+
+
+    //后序遍历
+    public void postOrder() {
+        postOrder(root);
+    }
+
+    private void postOrder(Node root) {
+        if (root == null) {
+            return;
+        }
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.println(root.e);
+    }
+
+
     private boolean contains(Node node, E e) {
         if (node == null) {
             return false;
