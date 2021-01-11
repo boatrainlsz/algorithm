@@ -25,6 +25,25 @@ public class BST<E extends Comparable<E>> {
         root = add(root, e);
     }
 
+    //是否包含e
+    public boolean contains(E e) {
+        return contains(root, e);
+    }
+
+    private boolean contains(Node node, E e) {
+        if (node == null) {
+            return false;
+        }
+        if (node.e.compareTo(e) == 0) {
+            return true;
+        } else if (node.e.compareTo(e) > 0) {
+            return contains(node.left, e);
+        } else {
+            return contains(node.right, e);
+        }
+    }
+
+
     //以node为根节点的BST中添加元素e,返回添加后的根节点
     private Node add(Node node, E e) {
         if (node == null) {
