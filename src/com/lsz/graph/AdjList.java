@@ -1,31 +1,33 @@
 package com.lsz.graph;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
- * 邻接矩阵
+ * 邻接表
  */
-public class AdjMatrix {
-
+public class AdjList {
     private int V;
     private int E;
-    private int[][] adj;
+    private LinkedList<Integer>[] adj;
 
-    public AdjMatrix(String filename) {
+    public AdjList(String filename) {
         File file = new File(filename);
         try (Scanner scanner = new Scanner(file)) {
             V = scanner.nextInt();
             if (V < 0) throw new Exception("wrong V");
-            adj = new int[V][V];
+            adj = new LinkedList[V];
             E = scanner.nextInt();
             if (E < 0) throw new Exception("wrong E");
+            for (int i = 0; i < V; i++) {
+                adj[i] = new LinkedList<Integer>();
+            }
             for (int i = 0; i < E; i++) {
                 int a = scanner.nextInt();
                 int b = scanner.nextInt();
-                adj[a][b] = 1;
-                adj[b][a] = 1;
+                adj[a].add(b);
+                adj[b].add(a);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,8 +35,8 @@ public class AdjMatrix {
     }
 
     public static void main(String[] args) {
-        AdjMatrix adjMatrix = new AdjMatrix("C:\\Users\\Amy\\Desktop\\lsz\\algorithm\\src\\com\\lsz\\graph\\a.txt");
-        System.out.println(adjMatrix);
+        AdjList adjList = new AdjList("C:\\Users\\Amy\\Desktop\\lsz\\algorithm\\src\\com\\lsz\\graph\\a.txt");
+        System.out.println(adjList);
     }
 
     public int getV() {
@@ -48,18 +50,12 @@ public class AdjMatrix {
     public boolean hasEdge(int p, int q) {
         validateVertex(p);
         validateVertex(q);
-        return adj[p][q] == 1;
+        return adj[p].contains(q);
     }
 
-    public ArrayList<Integer> adj(int p) {
+    public LinkedList<Integer> adj(int p) {
         validateVertex(p);
-        ArrayList<Integer> res = new ArrayList<>();
-        for (int i = 0; i < V; i++) {
-            if (adj[p][i] == 1) {
-                res.add(i);
-            }
-        }
-        return res;
+        return adj[p];
     }
 
     public int degree(int p) {
@@ -77,9 +73,10 @@ public class AdjMatrix {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("V=%d,E=%d\n", V, E));
-        for (int i = 0; i < V; i++) {
-            for (int j = 0; j < V; j++) {
-                sb.append(String.format("%d ", adj[i][j]));
+        for (int v = 0; v < V; v++) {
+            sb.append(String.format("%d : ", v));
+            for (int w : adj[v]) {
+                sb.append(String.format("%d ", w));
             }
             sb.append("\n");
         }
