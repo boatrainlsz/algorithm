@@ -41,8 +41,9 @@ public class QuickSort3Way {
                 break;
             }
         }
+        //before swap:[l+1,lt]<nums[l],[lt+1,gt-1]=nums[l], [gt,r]>nums[l]
         swap(arr, l, lt);
-        //swap后，循环不变量变为：arr[l,lt-1]<v,arr[lt,gt-1]==v,arr[gt,r]>v
+        //after swap:[l,lt-1]<nums[l],[lt,gt-1]=nums[l], [gt,r]>nums[l]
 
         quickSort(arr, l, lt - 1, random);
         quickSort(arr, gt, r, random);
