@@ -13,15 +13,14 @@ public class MergeSortU2BWithMemOpt {
             array[i] = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         }
         System.out.println(Arrays.toString(array));
-        MergeSortU2BWithMemOpt mergeSort = new MergeSortU2BWithMemOpt();
-        mergeSort.mergeSort(array);
+        sort(array);
         System.out.println(Arrays.toString(array));
     }
 
-    public void mergeSort(int[] arr) {
+    public static void sort(int[] arr) {
         //优化3：调用前先拷贝一次
         int[] copy = Arrays.copyOf(arr, arr.length);
-        mergeSort(arr, 0, arr.length - 1, copy);
+        sort(arr, 0, arr.length - 1, copy);
     }
 
     /**
@@ -31,13 +30,13 @@ public class MergeSortU2BWithMemOpt {
      * @param l
      * @param r
      */
-    public void mergeSort(int[] arr, int l, int r, int[] copy) {
+    public static void sort(int[] arr, int l, int r, int[] copy) {
         if (l == r) {
             return;
         }
         int mid = (l + r) / 2;
-        mergeSort(arr, l, mid, copy);
-        mergeSort(arr, mid + 1, r, copy);
+        sort(arr, l, mid, copy);
+        sort(arr, mid + 1, r, copy);
         merge(arr, l, mid, r, copy);
     }
 
@@ -49,7 +48,7 @@ public class MergeSortU2BWithMemOpt {
      * @param mid
      * @param r
      */
-    private void merge(int[] arr, int l, int mid, int r, int[] copy) {
+    private static void merge(int[] arr, int l, int mid, int r, int[] copy) {
         if (arr[mid] <= arr[mid + 1]) {
             //优化1：arr[l,r]已经有序了，不用再排了
             return;
