@@ -53,13 +53,13 @@ public class AdjSet {
         return adj[p].contains(q);
     }
 
-    public TreeSet<Integer> adj(int p) {
+    public Iterable<Integer> adj(int p) {
         validateVertex(p);
         return adj[p];
     }
 
     public int degree(int p) {
-        return adj(p).size();
+        return adj[p].size();
     }
 
     private void validateVertex(int p) {
