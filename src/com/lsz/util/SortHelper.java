@@ -10,9 +10,10 @@ public class SortHelper {
     public static void main(String[] args) throws Exception {
 //        int[] arr = ArrayUtil.generateDescendArray(1, 50000000);
 //        int[] arr = ArrayUtil.generateRandomArray(0, 10, 10);
-        int[] arr = new int[]{6, 7, 8, 9, 10, 1, 2, 3, 4, 5};
-//        sort(arr, "QuickSort2Way");
-        sort(arr, "MergeSortU2BWithMemOpt");
+//        int[] arr = new int[]{6, 7, 8, 9, 10, 1, 2, 3, 4, 5};
+        int[] arr = new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+        sort(arr, "QuickSort2Way");
+//        sort(arr, "MergeSortU2BWithMemOpt");
 //        sort(arr, "JDKSort");
     }
 

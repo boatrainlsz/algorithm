@@ -22,9 +22,9 @@ public class QuickSort2Way {
     private static int partition(int[] arr, int l, int r, Random random) {
         //问题：对于已经有序的数组，总是选取arr[l]作为pivot会导致快速排序退化为O(N^2)的算法，数据量大的的时候甚至会栈溢出。
         //解决办法：随机选取一个arr[l,r]的一个数作为pivot
-        int p = random.nextInt(r - l + 1) + l;
+//        int p = random.nextInt(r - l + 1) + l;
         //交换一下，再开始分区
-        swap(arr, l, p);
+//        swap(arr, l, p);
         int i = l + 1, j = r;
         //arr[l+1,i-1] <=arr[l]，arr[j+1,r] >=arr[l]
         while (true) {
